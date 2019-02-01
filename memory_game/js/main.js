@@ -26,6 +26,7 @@ var cards = [
 ];
 
 var cardsInPlay = [];
+var counter = 0;
 
 var createBoard = function() {
 	for (var i = 0; i < cards.length; i++) {
@@ -40,6 +41,8 @@ var createBoard = function() {
 var checkForMatch = function() {
 	if (cardsInPlay[0] === cardsInPlay[1]) {
 		alert("You found a match");
+		// increase a score by one
+		score();
 	}
 	else {
 		alert("Sorry, try again.");
@@ -61,4 +64,27 @@ var flipCard = function() {
 	}	
 }
 
+var score = function() {
+	var scoreNow = document.getElementById('score');
+	scoreNow.textContent = ++counter;
+}
+
 createBoard();
+
+// create a function expression to reset a game
+var reset = function() {
+	var gameBoard = document.getElementById('game-board');
+	var length = gameBoard.children.length;
+	// delete all cards
+	for (let i = 0; i < length; i++) {
+		gameBoard.children[0].remove();
+	}
+	// reset cardsInPlay to an empty array
+	cardsInPlay = [];
+	// create game-board again
+	return createBoard();
+}
+
+document.getElementById('button').addEventListener('click', reset);
+
+
